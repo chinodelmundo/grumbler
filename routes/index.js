@@ -2,8 +2,8 @@ var express = require('express');
 var router = express.Router();
 var MongoClient = require('mongodb').MongoClient;
 var ObjectId = require('mongodb').ObjectID;
-var url = 'mongodb://localhost:27017/test4';
-var collection = 'test4';
+var url = 'mongodb://grumbleruser:grumblerpassword@ds062059.mlab.com:62059/grumbler';
+var collection = 'grumbler';
 var moment = require('moment');
 
 var formatDocument = function(doc){
