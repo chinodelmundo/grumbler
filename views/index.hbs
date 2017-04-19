@@ -1,0 +1,51 @@
+<div class="navbar">
+	<h1>Grumbler</h1>
+</div>
+<div class="container">
+	<div class="main-content">
+		<div class="user-grumble">
+			<div class="panel-title"> New Grumble </div>
+			<form method="POST" class="pure-form pure-form-stacked">
+				<label class="input-label">Username</label>
+				<input type="text" name="username" required>
+
+				<label class="input-label">Grumble Text</label>
+				<textarea name="text" rows="4" cols="35" required></textarea>
+
+				<label class="input-label">Annoyance Level</label>
+		        <select name="level" class="grumble-input">
+		            <option value="1">Mildly Annoyed</option>
+		            <option value="2">Infuriated</option>
+		            <option value="3">Extremely Angry</option>
+		        </select>
+				<button type="submit" class="pure-button input-button">Submit</button>
+			</form>
+		</div>
+		<div class="grumble-stream">
+			<div class="panel-title"> Grumble Stream </div>
+			{{#each grumbles as |grumble|}}
+			  	<div class="grumble">
+			  		<div class="grumble-user">
+				  		<img class="user-icon" src="/images/user-icon.png" />
+				  		<div class="user-name"> {{grumble.username}} </div>
+					</div>
+			    	<div class="grumble-content">
+			      		{{grumble.text}}
+			    	</div>
+			    	<div class="grumble-footer">
+				    	<div class="grumble-level grumble-level-{{grumble.level.num}}">
+				    		{{grumble.level.text}}
+				    	</div>
+				    	<div class="grumble-datetime">
+				    		{{grumble.datetime}}
+				    	</div>
+			    	</div>
+			  	</div>
+			  	<hr>
+			{{/each}}
+		</div>
+		<div class="chat-panel">
+			<div class="panel-title"> Chat </div>
+		</div>
+	</div>
+</div>

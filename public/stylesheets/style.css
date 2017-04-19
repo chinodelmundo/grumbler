@@ -1,0 +1,110 @@
+.navbar {
+	background-color: #5d9694;
+	padding: 1px 0 0 10px;
+	border-bottom: 2px solid gray;
+	color: white;
+	height: 80px;
+}
+
+.main-content {
+    display: -webkit-flex;
+    display: flex;
+	position:absolute;
+    top: 90px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+}
+
+.panel-title {
+	text-align: center;
+	font-weight: bold;
+	border-bottom: 1px solid gray;
+	padding-bottom: 20px;
+}
+
+.user-grumble {
+    -webkit-flex: 1;
+    flex: 1;
+    border-right: 1px solid gray;
+    padding: 10px 20px 0 20px;
+}
+
+.grumble-stream {
+    -webkit-flex: 2;
+    flex: 2;
+    border-right: 1px solid gray;
+    padding: 10px 20px 0 20px;
+    overflow-y:scroll;
+}
+
+.chat-panel {
+    -webkit-flex: 1;
+    flex: 1;
+    padding: 10px 20px 0 20px;
+}
+
+.user-icon {
+	width: 30px;
+	height: 30px;
+}
+
+.grumble {
+	padding-top: 10px;
+}
+
+.grumble-user {
+    display: -webkit-flex;
+    display: flex;
+    -webkit-align-items: center;
+    align-items: center;
+	font-weight: bold;
+}
+
+.grumble-content {
+	margin-left: 50px;
+	padding: 10px 10px 10px 10px;
+}
+
+.grumble-footer {
+    display: -webkit-flex;
+    display: flex;
+    -webkit-justify-content: space-between;
+    justify-content: space-between;
+	padding: 5px 0 0 10px;
+}
+
+.grumble-datetime {
+	color: gray;
+	font-style: italic;
+	font-size: 8pt;
+}
+
+.grumble-level {
+	font-size: 10pt;
+	font-weight: bold;
+}
+
+.grumble-level-1 {
+	color: #d19c00;
+}
+
+.grumble-level-2 {
+	color: #fc6262;
+}
+
+.grumble-level-3 {
+	color: #a30000;
+}
+
+.user-name {
+	padding-left: 10px;
+}
+
+.input-label {
+	padding-top: 10px;
+}
+
+.input-button {
+	margin-top: 10px;
+}
