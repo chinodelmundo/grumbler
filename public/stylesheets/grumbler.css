@@ -1,0 +1,183 @@
+.navbar {
+	background-color: #5d9694;
+	position:absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    padding-left: 30px;
+	border-bottom: 2px solid gray;
+	color: white;
+	height: 70px;
+}
+
+.main-content {
+    display: -webkit-flex;
+    display: flex;
+	position:absolute;
+    top: 80px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+}
+
+.panel-title {
+	text-align: center;
+	font-weight: bold;
+	border-bottom: 1px solid gray;
+	padding: 10px 0 10px;
+	margin: 0 20px 0 20px;
+}
+
+.user-grumble {
+    -webkit-flex: 1;
+    flex: 1;
+    border-right: 1px solid gray;
+}
+
+.grumble-stream {
+    -webkit-flex: 2;
+    flex: 2;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+    border-right: 1px solid gray;
+}
+
+.new-grumble-panel {
+    padding: 0 20px 0 20px;
+}
+
+.grumble-panel {
+    overflow-y:scroll;
+    padding: 0 20px 0 20px;
+    margin-top: 10px;
+}
+
+.chat-panel {
+    -webkit-flex: 1;
+    flex: 1;
+}
+
+.user-icon {
+	width: 30px;
+	height: 30px;
+}
+
+.grumble {
+	padding-top: 10px;
+}
+
+.grumble-user, .comment-user {
+    display: -webkit-flex;
+    display: flex;
+    -webkit-align-items: center;
+    align-items: center;
+	font-weight: bold;
+}
+
+.grumble-content {
+	margin-left: 50px;
+	padding: 10px 10px 10px 10px;
+}
+
+.grumble-footer, .comment-footer {
+    display: -webkit-flex;
+    display: flex;
+    -webkit-justify-content: space-between;
+    justify-content: space-between;
+	padding: 5px 0 5px 10px;
+}
+
+.grumble-datetime, .comment-datetime {
+	color: gray;
+	font-style: italic;
+	font-size: 8pt;
+}
+
+.grumble-level {
+	font-size: 11pt;
+	font-weight: bold;
+	font-style: italic;
+}
+
+.grumble-level-1 {
+	color: #d19c00;
+}
+
+.grumble-level-2 {
+	color: #fc6262;
+}
+
+.grumble-level-3 {
+	color: #a30000;
+}
+
+.user-name {
+	padding-left: 10px;
+}
+
+.input-label {
+	padding-top: 10px;
+}
+
+.input-button {
+	margin-top: 10px;
+}
+
+.input-grumble-text, .input-comment-text {
+	width: 100%;
+}
+
+.comments-panel {
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+    font-size: 10pt;
+}
+
+.comment-container {
+    display: -webkit-flex;
+    display: flex;
+}
+
+.space {
+    -webkit-flex: 1;
+    flex: 1;
+}
+
+.comment {
+    -webkit-flex: 2;
+    flex: 2;
+    padding: 5px 0 5px 10px;
+    border-top: 1px solid gray;
+}
+
+.comment-content {
+	margin-left: 60px;
+}
+
+.grumble-actions {
+    display: -webkit-flex;
+    display: flex;
+	font-size: 10pt;
+	padding-bottom: 3px;
+}
+
+.toggle-comments-btn {
+    -webkit-flex: 2;
+    flex: 2;
+}
+
+.new-comment {
+    display: -webkit-flex;
+    display: flex;
+}
+
+.comment-form {
+    -webkit-flex: 2;
+    flex: 2;
+    border-top: 1px solid gray;
+    padding-top: 3px;
+}

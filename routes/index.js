@@ -6,31 +6,37 @@ var url = 'mongodb://grumbleruser:grumblerpassword@ds062059.mlab.com:62059/grumb
 var collection = 'grumbler';
 var moment = require('moment');
 
-var formatDocument = function(doc){
-	switch (doc.level) {
+var formatGrumble = function(grumble){
+	switch (grumble.level) {
 	    case '2':
-	        doc.level = {num: 2, text: 'Infuriated'};
+	        grumble.level = {num: 2, text: 'Infuriated'};
 	        break; 
 	    case '3':
-	        doc.level = {num: 3, text: 'Extremely Angry'};
+	        grumble.level = {num: 3, text: 'Extremely Angry'};
 	        break; 
 	    default: 
-	        doc.level = {num: 1, text: 'Mildly Annoyed'};
+	        grumble.level = {num: 1, text: 'Mildly Annoyed'};
 	}
 
-	doc.datetime = moment().format('MMMM Do YYYY, h:mm:ss a');
+	grumble.datetime = {num: Date.now(), text: moment().format('MMMM Do YYYY, h:mm:ss a')};
 
-	return doc;
-}
+	return grumble;
+};
 
 var formatResult = function(result){
 	result = result.map(function(grumble){
-		grumble.datetime = moment(grumble.datetime, 'MMMM Do YYYY, h:mm:ss a').fromNow();
+		grumble.datetime.relative = moment(grumble.datetime.text, 'MMMM Do YYYY, h:mm:ss a').fromNow();
+		if(grumble.comments){
+			grumble.comments = grumble.comments.map(function(comment){
+				comment.datetime.relative = moment(comment.datetime.text, 'MMMM Do YYYY, h:mm:ss a').fromNow()
+				return comment;
+			});
+		}
 		return grumble;
 	});
 
 	return result;
-}
+};
 
 MongoClient.connect(url, (err, db) => {
 	if (err) return console.log(err);
@@ -44,9 +50,22 @@ MongoClient.connect(url, (err, db) => {
 	});
 
 	router.post('/', function(req, res, next) {
-		req.body = formatDocument(req.body)
+		req.body = formatGrumble(req.body)
 
 		db.collection(collection).save(req.body, (err, result) => {
+	   	 	if (err) return console.log(err);
+	    	res.redirect('/');
+	  	});
+	});
+
+	router.post('/comment/:id', function(req, res, next) {
+		var id = req.params.id;
+		req.body.datetime = {num: Date.now(), text: moment().format('MMMM Do YYYY, h:mm:ss a')};
+
+		db.collection(collection).replaceOne(
+			{ '_id': new ObjectId(id) },
+			{ $push: {'comments': req.body} },
+			(err, result) => {
 	   	 	if (err) return console.log(err);
 	    	res.redirect('/');
 	  	});

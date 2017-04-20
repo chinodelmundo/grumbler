@@ -4,48 +4,91 @@
 <div class="container">
 	<div class="main-content">
 		<div class="user-grumble">
-			<div class="panel-title"> New Grumble </div>
-			<form method="POST" class="pure-form pure-form-stacked">
-				<label class="input-label">Username</label>
-				<input type="text" name="username" required>
+			<div class="panel-title"> New Grumble</div>
+			<div class="new-grumble-panel">
+				<form method="POST" class="pure-form pure-form-stacked">
+					<label class="input-label">Username</label>
+					<input type="text" name="username" required>
 
-				<label class="input-label">Grumble Text</label>
-				<textarea name="text" rows="4" cols="35" required></textarea>
+					<label class="input-label">Grumble Text</label>
+					<textarea class="input-grumble-text" name="text" rows="4" required></textarea>
 
-				<label class="input-label">Annoyance Level</label>
-		        <select name="level" class="grumble-input">
-		            <option value="1">Mildly Annoyed</option>
-		            <option value="2">Infuriated</option>
-		            <option value="3">Extremely Angry</option>
-		        </select>
-				<button type="submit" class="pure-button input-button">Submit</button>
-			</form>
+					<label class="input-label">Annoyance Level</label>
+			        <select name="level" class="grumble-input">
+			            <option value="1">Mildly Annoyed</option>
+			            <option value="2">Infuriated</option>
+			            <option value="3">Extremely Angry</option>
+			        </select>
+					<button type="submit" class="pure-button pure-button-primary input-button">Submit</button>
+				</form>
+			</div>
 		</div>
 		<div class="grumble-stream">
-			<div class="panel-title"> Grumble Stream </div>
-			{{#each grumbles as |grumble|}}
-			  	<div class="grumble">
-			  		<div class="grumble-user">
-				  		<img class="user-icon" src="/images/user-icon.png" />
-				  		<div class="user-name"> {{grumble.username}} </div>
-					</div>
-			    	<div class="grumble-content">
-			      		{{grumble.text}}
-			    	</div>
-			    	<div class="grumble-footer">
-				    	<div class="grumble-level grumble-level-{{grumble.level.num}}">
-				    		{{grumble.level.text}}
+			<div class="panel-title"> Grumble Stream</div>
+			<div class="grumble-panel">
+				{{#each grumbles as |grumble|}}
+				  	<div class="grumble">
+				  		<div class="grumble-user">
+					  		<img class="user-icon" src="/images/user-icon.png" />
+					  		<div class="user-name"> {{grumble.username}} </div>
+						</div>
+				    	<div class="grumble-content">
+				      		{{grumble.text}}
 				    	</div>
-				    	<div class="grumble-datetime">
-				    		{{grumble.datetime}}
+				    	<div class="grumble-footer">
+					    	<div class="grumble-level grumble-level-{{grumble.level.num}}">
+					    		{{grumble.level.text}}
+					    	</div>
+					    	<div class="grumble-datetime" title="{{grumble.datetime.text}}">
+					    		{{grumble.datetime.relative}}
+					    	</div>
 				    	</div>
-			    	</div>
-			  	</div>
-			  	<hr>
-			{{/each}}
+				    	<div class="grumble-actions">
+				    		<div class="space"></div>
+					    	<a href="#" class="toggle-comments-btn"> Hide comments </a>
+				    	</div>
+				    	<div class="comments-panel">
+				    		{{#each grumble.comments as |comment|}}
+				    			<div class="comment-container">
+				    				<div class="space"></div>
+				    				<div class="comment">
+				    					<div class="comment-user">
+					  						<img class="user-icon" src="/images/user-icon.png" />
+						    				<div class="user-name"> {{comment.username}} </div>
+				    					</div>
+				    					<div class="comment-content">
+						    				{{comment.comment}}
+				    					</div>
+				    					<div class="comment-footer">
+									    	<div class="comment-datetime" title="{{comment.datetime.text}}">
+									    		{{comment.datetime.relative}}
+									    	</div>
+				    					</div>
+						    		</div>
+				    			</div>
+				    		{{/each}}
+				    		<div class="new-comment">
+				    			<div class="space"></div>
+				    			<form method="POST" action="/comment/{{grumble._id}}" class="pure-form pure-form-aligned comment-form">
+				    				<fieldset>
+				    					<div class="pure-control-group">
+											<input type="text" name="username" placeholder="Username" required>
+											<div class="pure-form-message-inline">
+												<button type="submit" class="pure-button pure-button-primary">Submit Comment</button>
+											</div>
+										</div>
+										<textarea name="comment" class="input-comment-text" rows="2" placeholder="Comment" required></textarea>
+									</fieldset>
+								</form>
+				    		</div>
+				    	</div>
+				  	</div>
+				  	<hr/>
+				{{/each}}
+			</div>
 		</div>
 		<div class="chat-panel">
-			<div class="panel-title"> Chat </div>
+			<div class="panel-title"> Chat</div>
 		</div>
 	</div>
 </div>
