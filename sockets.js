@@ -1,8 +1,12 @@
 var sockets = function (io) {
+	var userCount = 0;
+
 	io.on('connection', function (socket) {
-		io.emit('user add');
+		userCount++;
+		io.emit('users count', userCount);
 		socket.on('disconnect', function(){
-			io.emit('user subtract');
+			userCount--;
+			io.emit('users count', userCount);
 		});
 
 		socket.on('chat message', function(chat){

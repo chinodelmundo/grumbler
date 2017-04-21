@@ -30,10 +30,8 @@ var eventHandlers = {
 	      	$('#chat-content').append($message);
 	    });
 
-	    socket.on('user add', function(){
-	    	var count = $('#users-count').text().substr(0, 1);
-	    	count = (parseInt(count) + 1) + $('#users-count').text().substr(1);
-	    	$('#users-count').text('' + count);
+	    socket.on('users count', function(count){
+	    	$('#users-count').text(count + $('#users-count').text().substr(1));
 	    });
 
 	    socket.on('user subtract', function(){
