@@ -7,21 +7,19 @@ var eventHandlers = {
 			$target.parent().parent().next().toggle(200);
 		});
 
-		$(function () {
-		    var socket = io();
-		    $('#sent-message-btn').on('click', function(){
-		    	if($('#new-message-text').val() != ''){
-			    	var chat = {
-			    		username: $('#new-message-username').val(),
-			    		text: $('#new-message-text').val()
-			    	};
+		var socket = io();
+	    $('#sent-message-btn').on('click', function(){
+	    	if($('#new-message-text').val() != ''){
+		    	var chat = {
+		    		username: $('#new-message-username').val(),
+		    		text: $('#new-message-text').val()
+		    	};
 
-			      	socket.emit('chat message', chat);
-			      	$('#new-message-text').val('');
-		    	}
-		      	return false;
-		    });
-		});
+		      	socket.emit('chat message', chat);
+		      	$('#new-message-text').val('');
+	    	}
+	      	return false;
+	    });
 
 		socket.on('chat message', function(chat){
 		   	$message = $('<div>').addClass('message');
