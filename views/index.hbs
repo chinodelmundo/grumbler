@@ -45,7 +45,10 @@
 				    	</div>
 				    	<div class="grumble-actions">
 				    		<div class="space"></div>
-					    	<a href="#" class="toggle-comments-btn"> Hide comments </a>
+				    		<div class="action-buttons">
+					    		<a href="#" class="empathize-btn" title="3 People Empathized with this Grumble"> Empathize (3) </a>
+						    	<a href="#" class="toggle-comments-btn"> Hide comments ({{grumble.comments.length}})</a>
+				    		</div>
 				    	</div>
 				    	<div class="comments-panel">
 				    		{{#each grumble.comments as |comment|}}
@@ -89,6 +92,15 @@
 		</div>
 		<div class="chat-panel">
 			<div class="panel-title"> Chat</div>
+			<div id="users-count">0 users are here</div>
+			<div id="chat-content"></div>
+			<div class="new-message">
+				<form class="pure-form pure-form-stacked message-form">
+					<input id="new-message-username" type="text" name="username" placeholder="Username">
+					<textarea id="new-message-text" class="input-grumble-text" name="comment" rows="2" placeholder="Message"></textarea>
+					<button id="sent-message-btn" type="submit" class="pure-button pure-button-primary">Send</button>
+				</form>
+			</div>
 		</div>
 	</div>
 </div>

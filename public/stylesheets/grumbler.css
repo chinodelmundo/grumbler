@@ -25,7 +25,7 @@
 	font-weight: bold;
 	border-bottom: 1px solid gray;
 	padding: 10px 0 10px;
-	margin: 0 20px 0 20px;
+    margin: 0 20px 0 20px;
 }
 
 .user-grumble {
@@ -151,7 +151,7 @@
     -webkit-flex: 2;
     flex: 2;
     padding: 5px 0 5px 10px;
-    border-top: 1px solid gray;
+    border-bottom: 1px solid gray;
 }
 
 .comment-content {
@@ -162,12 +162,20 @@
     display: -webkit-flex;
     display: flex;
 	font-size: 10pt;
-	padding-bottom: 3px;
+}
+
+.action-buttons {
+    -webkit-flex: 2;
+    flex: 2;
+    padding-bottom: 3px;
+    border-bottom: 1px solid gray;
+}
+.empathize-btn {
+
 }
 
 .toggle-comments-btn {
-    -webkit-flex: 2;
-    flex: 2;
+    padding-left: 10px;
 }
 
 .new-comment {
@@ -178,6 +186,57 @@
 .comment-form {
     -webkit-flex: 2;
     flex: 2;
-    border-top: 1px solid gray;
+    border-bottom: 1px solid gray;
     padding-top: 3px;
+}
+
+.chat-panel {
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+    -webkit-justify-content: flex-end;
+    justify-content: flex-end;
+}
+
+#users-count {
+    font-weight: bold;
+    padding: 10px 0 5px 10px;
+    margin: 0 20px 10px 20px;
+    border-bottom: 1px solid gray;
+    font-size: 11pt;
+    text-align: right;
+}
+
+.new-message {
+    border-top: 1px solid;
+    padding-bottom: 10px;
+    margin: 0 20px 0 20px;
+    font-size: 11pt;
+}
+
+#chat-content {
+    -webkit-flex: 1;
+    flex: 1;
+    overflow-y:scroll;
+    font-size: 10pt;
+    padding-left: 20px;;
+}
+
+.message-form {
+    padding-left: 10px;
+}
+
+#message-list {
+    list-style-type: none;
+}
+
+.message {
+    display: -webkit-flex;
+    display: flex;
+}
+
+.chat-username {
+    font-weight: bold;
+    padding-right: 5px;
 }

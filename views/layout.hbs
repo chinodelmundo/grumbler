@@ -1,13 +1,16 @@
 <!DOCTYPE html>
 <html>
   	<head>
-    	<title>Grumbler: Share your rants</title>
-		<link rel="stylesheet" href="/stylesheets/pure-min.css">
+    	<title>Grumbler: Share your feelings</title>
+		  <link rel="stylesheet" href="/stylesheets/pure-min.css">
     	<link rel='stylesheet' href='/stylesheets/grumbler.css' />
 
-		<script src="javascripts/jquery.min.js"></script>
-		<script src="javascripts/grumbler.js"></script>
-
+      <script src="/socket.io/socket.io.js"></script>
+		  <script src="javascripts/jquery.min.js"></script>
+		  <script src="javascripts/grumbler.js"></script>
+      <script>
+        var socket = io();
+      </script>
   	</head>
   	<body>
     	{{{body}}}
