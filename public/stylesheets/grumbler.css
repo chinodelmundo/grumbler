@@ -101,6 +101,10 @@
 	font-style: italic;
 }
 
+.grumble-level-0 {
+    color: #4285f4;
+}
+
 .grumble-level-1 {
 	color: #d19c00;
 }
@@ -111,6 +115,10 @@
 
 .grumble-level-3 {
 	color: #a30000;
+}
+
+.grumble-level-4 {
+    color: #7ffc5d;
 }
 
 .user-name {

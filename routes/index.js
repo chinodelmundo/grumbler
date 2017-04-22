@@ -8,14 +8,20 @@ var moment = require('moment');
 
 var formatGrumble = function(grumble){
 	switch (grumble.level) {
+	    case '1':
+	        grumble.level = {num: 1, text: 'Mildly Annoyed'};
+	        break; 
 	    case '2':
 	        grumble.level = {num: 2, text: 'Infuriated'};
 	        break; 
 	    case '3':
 	        grumble.level = {num: 3, text: 'Extremely Angry'};
 	        break; 
+	    case '4':
+	        grumble.level = {num: 4, text: 'Very Happy'};
+	        break; 
 	    default: 
-	        grumble.level = {num: 1, text: 'Mildly Annoyed'};
+	        grumble.level = {num: 0, text: 'Neutral'};
 	}
 
 	grumble.datetime = {num: Date.now(), text: moment().format('MMMM Do YYYY, h:mm:ss a')};
