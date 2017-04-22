@@ -17,9 +17,6 @@ var formatGrumble = function(grumble){
 	    case '3':
 	        grumble.level = {num: 3, text: 'Extremely Angry'};
 	        break; 
-	    case '4':
-	        grumble.level = {num: 4, text: 'Very Happy'};
-	        break; 
 	    default: 
 	        grumble.level = {num: 0, text: 'Neutral'};
 	}
