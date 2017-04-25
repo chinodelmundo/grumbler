@@ -12,6 +12,10 @@ var sockets = function (io) {
 		socket.on('chat message', function(chat){
     		io.emit('chat message', chat);
   		});
+
+  		socket.on('new grumble', function(value){
+    		io.emit('new grumble', 1);
+  		});
 	});
 };
 

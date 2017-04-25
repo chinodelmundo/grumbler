@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var MongoClient = require('mongodb').MongoClient;
 var ObjectId = require('mongodb').ObjectID;
-var url = 'mongodb://grumbleruser:grumblerpassword@ds062059.mlab.com:62059/grumbler';
+var url = process.env.MONGO_URI;
 var collection = 'grumbler';
 var moment = require('moment');
 

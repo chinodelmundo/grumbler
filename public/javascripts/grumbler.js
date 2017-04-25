@@ -8,7 +8,7 @@ var eventHandlers = {
 		});
 
 		var socket = io();
-	    $('#sent-message-btn').on('click', function(){
+	    $('#sent-message-btn').on('click', function(e){
 	    	if($('#new-message-text').val() != ''){
 		    	var chat = {
 		    		username: $('#new-message-username').val(),
@@ -32,6 +32,23 @@ var eventHandlers = {
 
 	    socket.on('users count', function(count){
 	    	$('#users-count').text(count + $('#users-count').text().substr(1));
+	    });
+
+	    var newGrumbleCount = 0;
+	    $(document).on('submit','#new-grumble-form',function(){
+	    	socket.emit('new grumble', 1);
+	    });
+
+	    socket.on('new grumble', function(value){
+	    	newGrumbleCount++;
+	    	$('#update-stream').text(newGrumbleCount + ' New Grumbles. Click to show.')
+	    	$('#update-stream').show(300);
+	    });
+
+	    $('#update-stream').on('click', function(e){
+	    	newGrumbleCount = 0;
+	    	$target = $(e.target);
+	    	$target.hide(300);
 	    });
 	}
 };

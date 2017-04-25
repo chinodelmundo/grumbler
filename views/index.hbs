@@ -6,7 +6,7 @@
 		<div class="user-grumble">
 			<div class="panel-title"> New Grumble</div>
 			<div class="new-grumble-panel">
-				<form method="POST" class="pure-form pure-form-stacked">
+				<form method="POST" class="pure-form pure-form-stacked" id="new-grumble-form">
 					<label class="input-label">Username</label>
 					<input type="text" name="username" required>
 
@@ -26,6 +26,9 @@
 		</div>
 		<div class="grumble-stream">
 			<div class="panel-title"> Grumble Stream</div>
+			<div id="update-stream">
+				<a href="/"></a>
+			</div>
 			<div class="grumble-panel">
 				{{#each grumbles as |grumble|}}
 				  	<div class="grumble">
@@ -33,9 +36,7 @@
 					  		<img class="user-icon" src="/images/user-icon.png" />
 					  		<div class="user-name"> {{grumble.username}} </div>
 						</div>
-				    	<div class="grumble-content">
-				      		{{grumble.text}}
-				    	</div>
+				    	<div class="grumble-content">{{grumble.text}}</div>
 				    	<div class="grumble-footer">
 					    	<div class="grumble-level grumble-level-{{grumble.level.num}}">
 					    		{{grumble.level.text}}
@@ -48,7 +49,11 @@
 				    		<div class="space"></div>
 				    		<div class="action-buttons">
 					    		<a href="#" class="empathize-btn" title="3 People Empathized with this Grumble"> Empathize (3) </a>
-						    	<a href="#" class="toggle-comments-btn"> Hide comments ({{grumble.comments.length}})</a>
+						    	<a href="#" class="toggle-comments-btn"> Hide comments 
+						    		{{#if grumble.comments}}
+								    	({{grumble.comments.length}})
+								  	{{/if}}
+								</a>
 				    		</div>
 				    	</div>
 				    	<div class="comments-panel">
@@ -60,9 +65,7 @@
 					  						<img class="user-icon" src="/images/user-icon.png" />
 						    				<div class="user-name"> {{comment.username}} </div>
 				    					</div>
-				    					<div class="comment-content">
-						    				{{comment.comment}}
-				    					</div>
+				    					<div class="comment-content">{{comment.comment}}</div>
 				    					<div class="comment-footer">
 									    	<div class="comment-datetime" title="{{comment.datetime.text}}">
 									    		{{comment.datetime.relative}}
@@ -73,16 +76,12 @@
 				    		{{/each}}
 				    		<div class="new-comment">
 				    			<div class="space"></div>
-				    			<form method="POST" action="/comment/{{grumble._id}}" class="pure-form pure-form-aligned comment-form">
-				    				<fieldset>
-				    					<div class="pure-control-group">
-											<input type="text" name="username" placeholder="Username" required>
-											<div class="pure-form-message-inline">
-												<button type="submit" class="pure-button pure-button-primary">Submit Comment</button>
-											</div>
-										</div>
-										<textarea name="comment" class="input-comment-text" rows="2" placeholder="Comment" required></textarea>
-									</fieldset>
+				    			<form method="POST" action="/comment/{{grumble._id}}" class="pure-form comment-form">
+			    					<div class="comment-form-top">
+				    					<input type="text" name="username" placeholder="Username" required>
+										<button type="submit" class="pure-button pure-button-primary submit-comment-btn">Submit Comment</button>
+									</div>
+									<textarea name="comment" class="input-comment-text" rows="2" placeholder="Comment" required></textarea>
 								</form>
 				    		</div>
 				    	</div>

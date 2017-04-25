@@ -79,6 +79,7 @@
 .grumble-content {
 	margin-left: 50px;
 	padding: 10px 10px 10px 10px;
+    white-space: pre-line;
 }
 
 .grumble-footer, .comment-footer {
@@ -135,6 +136,10 @@
 
 .input-grumble-text, .input-comment-text {
 	width: 100%;
+}
+
+.input-comment-text {
+    margin-top: 5px;
 }
 
 .comments-panel {
@@ -194,8 +199,21 @@
 .comment-form {
     -webkit-flex: 2;
     flex: 2;
-    border-bottom: 1px solid gray;
-    padding-top: 3px;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+    padding: 5px 50px;
+    font-size: .9em;
+}
+
+.comment-form-top {
+    display: -webkit-flex;
+    display: flex;
+}
+
+.submit-comment-btn {
+    margin: 3pt 0 3pt 3pt;
 }
 
 .chat-panel {
@@ -247,4 +265,21 @@
 .chat-username {
     font-weight: bold;
     padding-right: 5px;
+}
+
+textarea {
+    resize: vertical;
+}
+
+#new-message-text {
+    resize: none;
+}
+
+#update-stream {
+    text-align: center;
+    background-color: #85f6fc;
+    padding: 3px 0 3px;
+    margin: 5px 30px 0 30px;
+    font-style: italic;
+    display: none;
 }
