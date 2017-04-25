@@ -41,7 +41,7 @@ var eventHandlers = {
 
 	    socket.on('new grumble', function(value){
 	    	newGrumbleCount++;
-	    	$('#update-stream').text(newGrumbleCount + ' New Grumbles. Click to show.')
+	    	$('#update-stream a').text(newGrumbleCount + ' New Grumbles. Click to show.')
 	    	$('#update-stream').show(300);
 	    });
 

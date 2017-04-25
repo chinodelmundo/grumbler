@@ -169,6 +169,7 @@
 
 .comment-content {
 	margin-left: 60px;
+    white-space: pre-line;
 }
 
 .grumble-actions {
