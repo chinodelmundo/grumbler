@@ -209,8 +209,15 @@
     display: flex;
 }
 
+.input-comment-username {
+    -webkit-flex: 2;
+    flex: 2;
+}
+
 .submit-comment-btn {
     margin: 3pt 0 3pt 3pt;
+    -webkit-flex: 1;
+    flex: 1;
 }
 
 .chat-panel {
@@ -294,4 +301,14 @@ textarea {
 
 .empathize-btn:hover, .toggle-comments-btn:hover{
   color: purple;
+}
+
+.grumble-image {
+    width: 50%; 
+    height: auto;
+    border-radius: 20px;
+}
+
+.image-container {
+    margin-left: 60px;
 }

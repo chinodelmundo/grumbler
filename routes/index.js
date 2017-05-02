@@ -5,8 +5,12 @@ var ObjectId = require('mongodb').ObjectID;
 var url = process.env.MONGO_URI || require('../configs').MONGO_URI;
 var collection = 'grumbler';
 var moment = require('moment');
+const uuidV4 = require('uuid/v4');
+const imgur = require('imgur');
 
-var formatGrumble = function(grumble){
+const filePath = './public/images/';
+
+var formatGrumble = function(grumble, imgurLink){
 	switch (grumble.level) {
 	    case '1':
 	        grumble.level = {num: 1, text: 'Mildly Annoyed'};
@@ -21,8 +25,15 @@ var formatGrumble = function(grumble){
 	        grumble.level = {num: 0, text: 'Neutral'};
 	}
 
-	grumble.datetime = {num: Date.now(), text: moment().format('MMMM Do YYYY, h:mm:ss a')};
+	grumble.datetime = {
+		num: Date.now(), 
+		text: moment().format('MMMM Do YYYY, h:mm:ss a')
+	};
 
+	if(imgurLink){
+		grumble.imgurLink = imgurLink;
+	}
+	
 	return grumble;
 };
 
@@ -45,7 +56,7 @@ MongoClient.connect(url, (err, db) => {
 	if (err) return console.log(err);
 
 	router.get('/', function(req, res, next) {
-		db.collection(collection).find().sort( { "datetime": -1 } ).toArray((err, result) => {
+		db.collection(collection).find().sort( { 'datetime': -1 } ).limit(10).toArray((err, result) => {
 		    if (err) return console.log(err);
 		    result = formatResult(result);
 		    res.render('index', {grumbles: result});
@@ -53,12 +64,37 @@ MongoClient.connect(url, (err, db) => {
 	});
 
 	router.post('/', function(req, res, next) {
-		req.body = formatGrumble(req.body)
+		let uploadFile = req.files.image;
 
-		db.collection(collection).save(req.body, (err, result) => {
-	   	 	if (err) return console.log(err);
-	    	res.redirect('/');
-	  	});
+		if (!uploadFile){
+			req.body = formatGrumble(req.body);
+
+			db.collection(collection).save(req.body, (err, result) => {
+		   	 	if (err) return console.log(err);
+		    	res.redirect('/');
+		  	});
+		}else{
+			let filename = uuidV4() + '.jpg';
+
+			uploadFile.mv(filePath + filename , function(err) {
+			    if (err) return res.status(500).send(err);
+			});
+
+			imgur.setClientId(process.env.IMGUR_CLIENT_ID || require('../configs').IMGUR_CLIENT_ID);
+
+			imgur.uploadFile(filePath + filename)
+			    .then(function (json) {
+			    	grumbleData = formatGrumble(req.body, json.data.link);
+
+			    	db.collection(collection).save(grumbleData, (err, result) => {
+				   	 	if (err) return console.log(err);
+				    	res.redirect('/');
+				  	});
+			    })
+			    .catch(function (err) {
+			        console.error(err.message);
+			    });
+		}
 	});
 
 	router.post('/comment/:id', function(req, res, next) {

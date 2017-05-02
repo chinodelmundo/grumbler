@@ -6,7 +6,7 @@
 		<div class="user-grumble">
 			<div class="panel-title"> New Grumble</div>
 			<div class="new-grumble-panel">
-				<form method="POST" class="pure-form pure-form-stacked" id="new-grumble-form">
+				<form id="new-grumble-form" method="POST" encType="multipart/form-data" class="pure-form pure-form-stacked">
 					<label class="input-label">Username</label>
 					<input type="text" name="username" required>
 
@@ -20,6 +20,10 @@
 			            <option value="2">Infuriated</option>
 			            <option value="3">Extremely Angry</option>
 			        </select>
+
+			        <label class="input-label">Include image </label>
+			        <input type="file" name="image">
+
 					<button type="submit" class="pure-button pure-button-primary input-button">Submit</button>
 				</form>
 			</div>
@@ -37,6 +41,11 @@
 					  		<div class="user-name"> {{grumble.username}} </div>
 						</div>
 				    	<div class="grumble-content">{{grumble.text}}</div>
+				    	{{#if grumble.imgurLink}}
+				    		<div class="image-container">
+				    			<img class="grumble-image" src="{{grumble.imgurLink}}" />
+				    		</div>
+				    	{{/if}}
 				    	<div class="grumble-footer">
 					    	<div class="grumble-level grumble-level-{{grumble.level.num}}">
 					    		{{grumble.level.text}}
@@ -78,7 +87,7 @@
 				    			<div class="space"></div>
 				    			<form method="POST" action="/comment/{{grumble._id}}" class="pure-form comment-form">
 			    					<div class="comment-form-top">
-				    					<input type="text" name="username" placeholder="Username" required>
+				    					<input class="input-comment-username" type="text" name="username" placeholder="Username" required>
 										<button type="submit" class="pure-button pure-button-primary submit-comment-btn">Submit Comment</button>
 									</div>
 									<textarea name="comment" class="input-comment-text" rows="2" placeholder="Comment" required></textarea>
