@@ -1,13 +1,42 @@
-.navbar {
+nav {
+    display: -webkit-flex;
+    display: flex;
+    -webkit-justify-content: space-between;
+    justify-content: space-between;
+    -webkit-align-items: center;
+    align-items: center;
 	background-color: #5d9694;
-	position:absolute;
-    top: 0px;
-    left: 0px;
-    right: 0px;
-    padding-left: 30px;
+    padding: 0 50px 0 50px;
 	border-bottom: 2px solid #ccc;
-	color: white;
 	height: 70px;
+}
+
+.index-link {
+    font-size: 3rem;
+    font-weight: bold;
+    color: white;
+    text-decoration: none;
+}
+
+.login-link {
+    font-weight: bold;
+    text-decoration: none;
+    color: white;
+    font-size: 1.6rem;
+}
+
+.login-link:hover, .dropdown-link:hover, .dropdown > a:hover {
+    text-decoration: underline;
+}
+
+.dropdown {
+    display: inline-block;
+}
+
+.dropdown > a {
+    font-size: 1.6rem;
+    color: white;
+    font-weight: bold;
 }
 
 .main-content {
@@ -28,7 +57,7 @@
     margin: 0 20px 0 20px;
 }
 
-.user-grumble {
+.user-grumble, .user-info-panel {
     -webkit-flex: 1;
     flex: 1;
     border-right: 1px solid #ccc;
@@ -49,7 +78,7 @@
 }
 
 .grumble-panel {
-    overflow-y:scroll;
+    overflow-y: auto;
     padding: 0 20px 0 20px;
     margin-top: 10px;
 }
@@ -61,6 +90,7 @@
 
 .grumble {
 	padding-top: 10px;
+    border-bottom: 2px solid #ccc;
 }
 
 .grumble-user, .comment-user {
@@ -72,7 +102,7 @@
 }
 
 .grumble-content {
-	margin-left: 50px;
+	margin-left: 70px;
 	padding: 10px 10px 10px 10px;
     white-space: pre-line;
 }
@@ -142,7 +172,6 @@
     overflow-y: auto;
     max-height: 300px;
     padding-bottom: 5px;
-    border-bottom: 2px solid #ccc;
 }
 
 .comment-container {
@@ -180,9 +209,6 @@
     padding-bottom: 3px;
     border-bottom: 1px solid #ccc;
 }
-.empathize-btn {
-
-}
 
 .toggle-comments-btn {
     padding-left: 10px;
@@ -200,8 +226,9 @@
     display: flex;
     -webkit-flex-direction: column;
     flex-direction: column;
-    padding: 5px 50px;
+    padding: 5px 20px;
     font-size: .9em;
+    margin-left: 30px;
 }
 
 .comment-form-top {
@@ -250,7 +277,7 @@
 #chat-content {
     -webkit-flex: 1;
     flex: 1;
-    overflow-y:scroll;
+    overflow-y: auto;
     font-size: 10pt;
     padding-left: 20px;
 }
@@ -301,14 +328,79 @@ textarea {
 
 .empathize-btn:hover, .toggle-comments-btn:hover{
   color: purple;
+  text-decoration: underline;
 }
 
 .grumble-image {
     width: 50%; 
     height: auto;
-    border-radius: 20px;
+    border-radius: 15px 50px 5px 30px;
 }
 
 .image-container {
     margin-left: 60px;
+    max-height: 150px;
+    overflow: hidden;
+    border-radius: 15px 50px 5px 30px;
+}
+
+.center-content {
+    height: 400px;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-align-items: center;
+    align-items: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+}
+
+.login-panel {
+    width: 50%;
+    height: 50%;
+    padding: 10px 10px 10px 10px;
+    border: 1pt solid #ccc;
+}
+
+.error-message {
+    font-weight: bold;
+    font-size: 2rem;
+    text-align: center;
+    color: red;
+    padding-top: 2rem;
+}
+
+.guest-text {
+    padding-left: 1rem;
+    font-size: 0.9rem;
+    font-style: italic;
+    color: gray;
+    text-decoration: underline;
+}
+
+.user-info {
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+    -webkit-align-items: center;
+    align-items: center;
+    margin: 10px 10px 0 20px;
+}
+
+.profile-photo-container {
+    width: 50%;
+}
+
+.profile-photo {
+    width: 100%;
+    height: auto;
+}
+
+.table-info {
+    margin-top: 2rem;
+}
+
+.row-name {
+    font-weight: bold;
+    text-align: right
 }

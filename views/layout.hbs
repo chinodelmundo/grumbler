@@ -3,13 +3,32 @@
   	<head>
     	<title>Grumbler: Share your feelings</title>
 		  <link rel="stylesheet" href="/stylesheets/pure-min.css">
-    	<link rel='stylesheet' href='/stylesheets/grumbler.css' />
+      <link rel="stylesheet" href="/stylesheets/bootstrap.css" />
+    	<link rel="stylesheet" href="/stylesheets/grumbler.css" />
 
       <script src="/socket.io/socket.io.js"></script>
-		  <script src="javascripts/jquery.min.js"></script>
-		  <script src="javascripts/grumbler.js"></script>
+		  <script src="/javascripts/jquery.min.js"></script>
+      <script src="/javascripts/bootstrap.js"></script>
+		  <script src="/javascripts/grumbler.js"></script>
   	</head>
   	<body>
+      <nav>
+        <a class="index-link" href="/"> Grumbler </a>
+
+        {{#if user}}
+          <ul class="nav navbar-nav">
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">  {{user.username}} <span class="caret"></span></a>
+                <ul class="dropdown-menu" role="menu">
+                    <li><a class="dropdown-link" href="/user/{{user.username}}"> My Profile </a></li>
+                    <li><a class="dropdown-link" href="/auth/logout"> Logout </a></li>
+                </ul>
+            </li>
+          </ul>
+        {{else}}
+          <a class="login-link" href="/auth/login"> Login </a>
+        {{/if}}
+      </nav>
     	{{{body}}}
   	</body>
 </html>

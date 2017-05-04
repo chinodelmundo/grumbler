@@ -1,0 +1,28 @@
+{{#if message}}
+	<div class="error-message">
+		{{message}}
+	</div>
+{{/if}}
+<div class="center-content">
+	<div class="login-panel">
+		<form class="pure-form pure-form-aligned" method="POST">
+		    <fieldset>
+		    	<legend> Sign Up Form</legend>
+		        <div class="pure-control-group">
+		            <label for="name">Username</label>
+		            <input name="username" type="text" placeholder="Username">
+		        </div>
+
+		        <div class="pure-control-group">
+		            <label for="password">Password</label>
+		            <input name="password" type="password" placeholder="Password">
+		        </div>
+
+		        <div class="pure-controls">
+		            <button type="submit" class="pure-button pure-button-primary">Sign Up</button>
+		            <a href="/auth/login"> Login </a>
+		        </div>
+		    </fieldset>
+		</form>
+	</div>
+</div>

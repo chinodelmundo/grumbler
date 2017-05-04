@@ -33,6 +33,10 @@ var formatGrumble = function(grumble, imgurLink){
 	if(imgurLink){
 		grumble.imgurLink = imgurLink;
 	}
+
+	if(grumble.registered){
+		grumble.registered = parseInt(grumble.registered);
+	}
 	
 	return grumble;
 };
@@ -52,63 +56,65 @@ var formatResult = function(result){
 	return result;
 };
 
-MongoClient.connect(url, (err, db) => {
-	if (err) return console.log(err);
+module.exports = function(passport){
+	MongoClient.connect(url, (err, db) => {
+		if (err) return console.log(err);
 
-	router.get('/', function(req, res, next) {
-		db.collection(collection).find().sort( { 'datetime': -1 } ).limit(10).toArray((err, result) => {
-		    if (err) return console.log(err);
-		    result = formatResult(result);
-		    res.render('index', {grumbles: result});
+		router.get('/', function(req, res, next) {
+			db.collection(collection).find().sort( { 'datetime': -1 } ).limit(10).toArray((err, result) => {
+			    if (err) return console.log(err);
+			    result = formatResult(result);
+			    res.render('index', {grumbles: result, user: req.user});
+			});
 		});
-	});
 
-	router.post('/', function(req, res, next) {
-		let uploadFile = req.files.image;
+		router.post('/', function(req, res, next) {
+			let uploadFile = req.files.image;
 
-		if (!uploadFile){
-			req.body = formatGrumble(req.body);
+			if (!uploadFile){
+				req.body = formatGrumble(req.body);
 
-			db.collection(collection).save(req.body, (err, result) => {
+				db.collection(collection).save(req.body, (err, result) => {
+			   	 	if (err) return console.log(err);
+			    	res.redirect('/');
+			  	});
+			}else{
+				let filename = uuidV4() + '.jpg';
+
+				uploadFile.mv(filePath + filename , function(err) {
+				    if (err) return res.status(500).send(err);
+				});
+
+				imgur.setClientId(process.env.IMGUR_CLIENT_ID || require('../configs').IMGUR_CLIENT_ID);
+
+				imgur.uploadFile(filePath + filename)
+				    .then(function (json) {
+				    	grumbleData = formatGrumble(req.body, json.data.link);
+
+				    	db.collection(collection).save(grumbleData, (err, result) => {
+					   	 	if (err) return console.log(err);
+					    	res.redirect('/');
+					  	});
+				    })
+				    .catch(function (err) {
+				        console.error(err.message);
+				    });
+			}
+		});
+
+		router.post('/comment/:id', function(req, res, next) {
+			var id = req.params.id;
+			req.body.datetime = {num: Date.now(), text: moment().format('MMMM Do YYYY, h:mm:ss a')};
+
+			db.collection(collection).replaceOne(
+				{ '_id': new ObjectId(id) },
+				{ $push: {'comments': req.body} },
+				(err, result) => {
 		   	 	if (err) return console.log(err);
 		    	res.redirect('/');
 		  	});
-		}else{
-			let filename = uuidV4() + '.jpg';
-
-			uploadFile.mv(filePath + filename , function(err) {
-			    if (err) return res.status(500).send(err);
-			});
-
-			imgur.setClientId(process.env.IMGUR_CLIENT_ID || require('../configs').IMGUR_CLIENT_ID);
-
-			imgur.uploadFile(filePath + filename)
-			    .then(function (json) {
-			    	grumbleData = formatGrumble(req.body, json.data.link);
-
-			    	db.collection(collection).save(grumbleData, (err, result) => {
-				   	 	if (err) return console.log(err);
-				    	res.redirect('/');
-				  	});
-			    })
-			    .catch(function (err) {
-			        console.error(err.message);
-			    });
-		}
+		});
 	});
 
-	router.post('/comment/:id', function(req, res, next) {
-		var id = req.params.id;
-		req.body.datetime = {num: Date.now(), text: moment().format('MMMM Do YYYY, h:mm:ss a')};
-
-		db.collection(collection).replaceOne(
-			{ '_id': new ObjectId(id) },
-			{ $push: {'comments': req.body} },
-			(err, result) => {
-	   	 	if (err) return console.log(err);
-	    	res.redirect('/');
-	  	});
-	});
-});
-
-module.exports = router;
+	return router;
+}

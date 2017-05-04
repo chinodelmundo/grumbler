@@ -6,7 +6,10 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 const fileUpload = require('express-fileupload');
 
-var index = require('./routes/index');
+var url = process.env.MONGO_URI || require('./configs').MONGO_URI;
+var mongoose = require('mongoose');
+// Connect to DB
+mongoose.connect(url);
 
 var app = express();
 
@@ -23,7 +26,35 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Configuring Passport
+var passport = require('passport');
+var expressSession = require('express-session');
+
+app.use(expressSession({
+		secret: 'mySecretKey',
+		resave: false,
+		saveUninitialized: false
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+
+
+ // Using the flash middleware provided by connect-flash to store messages in session
+ // and displaying in templates
+var flash = require('connect-flash');
+app.use(flash());
+
+// Initialize Passport
+var initPassport = require('./passport/init');
+initPassport(passport);
+
+var index = require('./routes/index')(passport);
+var auth = require('./routes/auth')(passport);
+var user = require('./routes/user')(passport);
+
 app.use('/', index);
+app.use('/auth', auth);
+app.use('/user', user);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

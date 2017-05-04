@@ -1,114 +1,147 @@
-<div class="navbar">
-	<h1>Grumbler</h1>
-</div>
-<div class="container">
-	<div class="main-content">
-		<div class="user-grumble">
-			<div class="panel-title"> New Grumble</div>
-			<div class="new-grumble-panel">
-				<form id="new-grumble-form" method="POST" encType="multipart/form-data" class="pure-form pure-form-stacked">
+<div class="main-content">
+	<div class="user-grumble">
+		<div class="panel-title"> New Grumble</div>
+		<div class="new-grumble-panel">
+			<form id="new-grumble-form" method="POST" encType="multipart/form-data" class="pure-form pure-form-stacked">
+				
+				{{#if user}}
+					<input type="hidden" name="username" value="{{user.username}}" />
+					<input type="hidden" name="registered" value="1" />
+				{{else}}
 					<label class="input-label">Username</label>
-					<input type="text" name="username" required>
+					<input type="text" name="username" required />
+				{{/if}}
 
-					<label class="input-label">Grumble Text</label>
-					<textarea class="input-grumble-text" name="text" rows="4" required></textarea>
+				<label class="input-label">Grumble Text</label>
+				<textarea class="input-grumble-text" name="text" rows="4" required></textarea>
 
-					<label class="input-label">Annoyance Level</label>
-			        <select name="level" class="grumble-input">
-			            <option value="0">Neutral</option>
-			            <option value="1">Mildly Annoyed</option>
-			            <option value="2">Infuriated</option>
-			            <option value="3">Extremely Angry</option>
-			        </select>
+				<label class="input-label">Annoyance Level</label>
+		        <select name="level" class="grumble-input">
+		            <option value="0">Neutral</option>
+		            <option value="1">Mildly Annoyed</option>
+		            <option value="2">Infuriated</option>
+		            <option value="3">Extremely Angry</option>
+		        </select>
 
-			        <label class="input-label">Include image </label>
-			        <input type="file" name="image">
+		        <label class="input-label">Include image </label>
+		        <input type="file" name="image" />
 
-					<button type="submit" class="pure-button pure-button-primary input-button">Submit</button>
-				</form>
-			</div>
+				<button type="submit" class="pure-button pure-button-primary input-button">Submit</button>
+			</form>
 		</div>
-		<div class="grumble-stream">
-			<div class="panel-title"> Grumble Stream</div>
-			<div id="update-stream">
-				<a href="/"></a>
-			</div>
-			<div class="grumble-panel">
-				{{#each grumbles as |grumble|}}
-				  	<div class="grumble">
-				  		<div class="grumble-user">
-					  		<img class="user-icon" src="/images/user-icon.png" />
-					  		<div class="user-name"> {{grumble.username}} </div>
-						</div>
-				    	<div class="grumble-content">{{grumble.text}}</div>
-				    	{{#if grumble.imgurLink}}
-				    		<div class="image-container">
-				    			<img class="grumble-image" src="{{grumble.imgurLink}}" />
-				    		</div>
-				    	{{/if}}
-				    	<div class="grumble-footer">
-					    	<div class="grumble-level grumble-level-{{grumble.level.num}}">
-					    		{{grumble.level.text}}
-					    	</div>
-					    	<div class="grumble-datetime" title="{{grumble.datetime.text}}">
-					    		{{grumble.datetime.relative}}
-					    	</div>
-				    	</div>
-				    	<div class="grumble-actions">
-				    		<div class="space"></div>
-				    		<div class="action-buttons">
-					    		<a href="#" class="empathize-btn" title="3 People Empathized with this Grumble"> Empathize (3) </a>
-						    	<a href="#" class="toggle-comments-btn"> Hide comments 
-						    		{{#if grumble.comments}}
-								    	({{grumble.comments.length}})
-								  	{{/if}}
-								</a>
-				    		</div>
-				    	</div>
-				    	<div class="comments-panel">
-				    		{{#each grumble.comments as |comment|}}
-				    			<div class="comment-container">
-				    				<div class="space"></div>
-				    				<div class="comment">
-				    					<div class="comment-user">
-					  						<img class="user-icon" src="/images/user-icon.png" />
-						    				<div class="user-name"> {{comment.username}} </div>
-				    					</div>
-				    					<div class="comment-content">{{comment.comment}}</div>
-				    					<div class="comment-footer">
-									    	<div class="comment-datetime" title="{{comment.datetime.text}}">
-									    		{{comment.datetime.relative}}
-									    	</div>
-				    					</div>
-						    		</div>
-				    			</div>
-				    		{{/each}}
-				    		<div class="new-comment">
-				    			<div class="space"></div>
-				    			<form method="POST" action="/comment/{{grumble._id}}" class="pure-form comment-form">
-			    					<div class="comment-form-top">
-				    					<input class="input-comment-username" type="text" name="username" placeholder="Username" required>
-										<button type="submit" class="pure-button pure-button-primary submit-comment-btn">Submit Comment</button>
-									</div>
-									<textarea name="comment" class="input-comment-text" rows="2" placeholder="Comment" required></textarea>
-								</form>
-				    		</div>
-				    	</div>
-				  	</div>
-				{{/each}}
-			</div>
+	</div>
+	<div class="grumble-stream">
+		<div class="panel-title"> Grumble Stream</div>
+		<div id="update-stream">
+			<a href="/"></a>
 		</div>
-		<div class="chat-panel">
-			<div class="panel-title"> Chat</div>
-			<div id="users-count">0 users are here</div>
-			<div id="chat-content"></div>
-			<div class="new-message">
-				<form class="pure-form pure-form-stacked message-form">
+		<div class="grumble-panel">
+			{{#each grumbles as |grumble|}}
+			  	<div class="grumble">
+			  		<div class="grumble-user">
+				  		<img class="user-icon" src="/images/user-icon.png" />
+				  		{{#if grumble.registered}}
+				  			<div class="user-name"> 
+				  				<a href="/user/{{grumble.username}}">{{grumble.username}}</a>
+				  			</div>
+				  		{{else}}
+				  			<div class="user-name"> {{grumble.username}} </div>
+				  			<div class="guest-text">Guest User</div>
+				  		{{/if}}					
+					</div>
+			    	<div class="grumble-content">{{grumble.text}}</div>
+			    	{{#if grumble.imgurLink}}
+			    		<div class="image-container">
+			    			<img class="grumble-image" src="{{grumble.imgurLink}}" />
+			    		</div>
+			    	{{/if}}
+			    	<div class="grumble-footer">
+				    	<div class="grumble-level grumble-level-{{grumble.level.num}}">
+				    		{{grumble.level.text}}
+				    	</div>
+				    	<div class="grumble-datetime" title="{{grumble.datetime.text}}">
+				    		{{grumble.datetime.relative}}
+				    	</div>
+			    	</div>
+			    	<div class="grumble-actions">
+			    		<div class="space"></div>
+			    		<div class="action-buttons">
+				    		<a href="#" class="empathize-btn"> Empathize </a>
+					    	<a href="#" class="toggle-comments-btn"> Hide comments 
+					    		{{#if grumble.comments}}
+							    	({{grumble.comments.length}})
+							  	{{/if}}
+							</a>
+			    		</div>
+			    	</div>
+			    	<div class="comments-panel">
+			    		{{#each grumble.comments as |comment|}}
+			    			<div class="comment-container">
+			    				<div class="space"></div>
+			    				<div class="comment">
+			    					<div class="comment-user">
+				  						<img class="user-icon" src="/images/user-icon.png" />
+					    				{{#if comment.registered}}
+								  			<div class="user-name"> 
+								  				<a href="/user/{{comment.username}}">{{comment.username}}</a>
+								  			</div>
+								  		{{else}}
+								  			<div class="user-name"> {{comment.username}} </div>
+								  			<div class="guest-text">Guest User</div>
+								  		{{/if}}
+			    					</div>
+			    					<div class="comment-content">{{comment.comment}}</div>
+			    					<div class="comment-footer">
+								    	<div class="comment-datetime" title="{{comment.datetime.text}}">
+								    		{{comment.datetime.relative}}
+								    	</div>
+			    					</div>
+					    		</div>
+			    			</div>
+			    		{{/each}}
+			    		<div class="new-comment">
+			    			<div class="space"></div>
+    						
+    						{{#if ../user}}
+	    						<form method="POST" action="/comment/{{grumble._id}}" class="pure-form comment-form">
+		    						<input type="hidden" name="username" value="{{../user.username}}" />
+									<input type="hidden" name="registered" value="1" />
+		    						<textarea name="comment" class="input-comment-text" rows="2" placeholder="Comment" required></textarea>
+		    						<div class="comment-form-top">
+		    							<button type="submit" class="pure-button pure-button-primary submit-comment-btn">Submit Comment</button>
+		    							<div class="space"></div>
+		    						</div>
+		    					</form>
+							{{else}}
+								<form method="POST" action="/comment/{{grumble._id}}" class="pure-form comment-form">
+	    							<div class="comment-form-top">
+		    							<input class="input-comment-username" type="text" name="username" placeholder="Username" required>
+		    							<button type="submit" class="pure-button pure-button-primary submit-comment-btn">Submit Comment</button>
+		    						</div>
+		    						<textarea name="comment" class="input-comment-text" rows="2" placeholder="Comment" required></textarea>
+		    					</form>
+							{{/if}}
+			    		</div>
+			    	</div>
+			  	</div>
+			{{/each}}
+		</div>
+	</div>
+	<div class="chat-panel">
+		<div class="panel-title"> Chat</div>
+		<div id="users-count">0 users are here</div>
+		<div id="chat-content"></div>
+		<div class="new-message">
+			<form class="pure-form pure-form-stacked message-form">
+				{{#if user}}
+					<input id="new-message-username" type="hidden" name="username" value="{{user.username}}">
+				{{else}}
 					<input id="new-message-username" type="text" name="username" placeholder="Username">
-					<textarea id="new-message-text" class="input-grumble-text" name="comment" rows="2" placeholder="Message"></textarea>
-					<button id="sent-message-btn" type="submit" class="pure-button pure-button-primary">Send</button>
-				</form>
-			</div>
+				{{/if}}
+				
+				<textarea id="new-message-text" class="input-grumble-text" name="comment" rows="2" placeholder="Message"></textarea>
+				<button id="sent-message-btn" type="submit" class="pure-button pure-button-primary">Send</button>
+			</form>
 		</div>
 	</div>
 </div>
