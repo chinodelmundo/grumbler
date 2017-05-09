@@ -1,6 +1,11 @@
 <div class="main-content">
 	<div class="user-grumble">
-		<div class="panel-title"> New Grumble</div>
+		<div class="panel-title">
+			New Grumble
+			<button class="pure-button" id="hide-left-panel-btn">
+				<i class="fa fa-arrow-left" aria-hidden="true"></i>
+			</button>
+		</div>
 		<div class="new-grumble-panel">
 			<form id="new-grumble-form" method="POST" encType="multipart/form-data" class="pure-form pure-form-stacked">
 				
@@ -31,7 +36,12 @@
 		</div>
 	</div>
 	<div class="grumble-stream">
-		<div class="panel-title"> Grumble Stream</div>
+		<div class="panel-title">
+			<button class="pure-button" id="show-left-panel-btn">
+				<i class="fa fa-arrow-right" aria-hidden="true"></i>
+			</button>
+			Grumble Stream
+		</div>
 		<div id="update-stream">
 			<a href="/"></a>
 		</div>

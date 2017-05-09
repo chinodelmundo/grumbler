@@ -55,6 +55,7 @@ nav {
 	border-bottom: 1px solid #ccc;
 	padding: 10px 0 10px;
     margin: 0 20px 0 20px;
+    position: relative;
 }
 
 .user-grumble, .user-info-panel {
@@ -403,4 +404,17 @@ textarea {
 .row-name {
     font-weight: bold;
     text-align: right
+}
+
+#hide-left-panel-btn {
+    position: absolute;
+    right: 10px;
+    top: 5px;
+}
+
+#show-left-panel-btn {
+    position: absolute;
+    left: 10px;
+    top: 5px;
+    display: none;
 }

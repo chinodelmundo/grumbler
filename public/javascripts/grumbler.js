@@ -50,6 +50,16 @@ var eventHandlers = {
 	    	$target = $(e.target);
 	    	$target.hide(300);
 	    });
+
+	    $('#hide-left-panel-btn').on('click', function(e){
+	    	$('.user-grumble').hide(200);
+	    	$('#show-left-panel-btn').show(100);
+	    });
+
+	    $('#show-left-panel-btn').on('click', function(e){
+	    	$('.user-grumble').show(200);
+	    	$('#show-left-panel-btn').hide(200);
+	    });
 	}
 };
 
